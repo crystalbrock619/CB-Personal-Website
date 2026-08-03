@@ -1,0 +1,10 @@
+# Netlify redirects — preserve URLs from the previous site structure.
+# Old pages were folded into the single-scroll homepage; these keep any
+# existing links, bookmarks, and search-engine results working.
+
+/contact          /#contact     301
+/contact.html     /#contact     301
+/projects         /#work        301
+/projects.html    /#work        301
+/index.html       /             301
+/about.html       /about        301

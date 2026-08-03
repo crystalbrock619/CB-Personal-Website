@@ -1,106 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crystal Brock Portfolio-About</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <!-- This allows you to use FontAwesome for arrows. From fontawesome.com-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="index.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Crystal Brock</title>
+<meta name="description" content="How Crystal Brock went from a Commodore 64, to ten years driving tractor-trailers, to building AI automation with a Cybersecurity degree earned Summa Cum Laude.">
+<link rel="canonical" href="https://www.crystalbrock.org/about">
+
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://www.crystalbrock.org/about">
+<meta property="og:title" content="About — Crystal Brock">
+<meta property="og:description" content="From a Commodore 64 to ten years on the road to AI automation and cybersecurity governance.">
+<meta property="og:image" content="https://www.crystalbrock.org/assets/Profile.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e50a2'/><text y='72' x='50' text-anchor='middle' font-size='62' font-family='Georgia,serif' font-weight='bold' fill='white'>C</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>
-    <h1>Crystal Brock</h1>
-    <nav>
-      <a href="./index.html">Home</a>
-      <a href="./about.html">About</a>
-      <a href="./contact.html">Contact</a>
-      <figure>
-        <input type="text" id="txtlookfor" autofocus>
-        <input type="button" id="txtlookforbutton" onclick="search()" value="Go">
-        <figcaption>Search Site</figcaption>
-      </figure>
-    </nav>
-  </header>
-  <section class="aboutInfo">
-    <p id="p1">
-      I wrote my first program in Basic on a Commodore 64 and I loved it. Unfortunatly, way back then we didn't have
-      code editors and hours spent searching for syntax errors was so frustrating for my 10 year old self I just gave it
-      up. Later, in junior high, I signed up for a summer program teaching how to code low res graphics in Basic. Again, I
-      found I loved it and ended up with the most detailed project in the class.
-      Still no code editors though so after the program was over I didn't continue to code. As an adult I have spent the
-      last decade as a professional truck driver.
-      After 10 years of driving for a living, I decided driving was just not satisfying my need to build design and
-      create things. 
-    </p>
-    <p id="p2">
-      I had been attempting to learn Java in my spare time, but found that motivation to practice coding after sitting
-      behind a steering wheel for 60 hours a week was in short supply! So, I decided I wanted to go to school for web development full time. My wonderful partner agreed to support our
-      household while I attend school so I began working toward my bachelor's degree in Cybersecurity at 
-      <a href="https://www.snhu.edu/">Southern New Hampshire University</a>. In my time there, I have maintained a GPA over 3.5
-      and I am on track to graduate with highest Latin honors. I have made the <a href="https://meritpages.com/crystalbrock">President's List</a>a> every semester I have been enrolled. Additionally, I am an inducted member of the honor society,
-      National Society of Ledership and Success (Sigma Alpha Pi).
-    </p>
-  </section>
-  <!--About Page Hobbies Section-->
-  <section class="aboutHobbies">
-    <h2>Hobbies</h2>
-    <p>I am very creative and I have several crafting hobbies.</p>
-    <ul>
-      <li>Embroidery</li>
-      <li>Paint-by-Number</li>
-      <li>Crochet</li>
-    </ul>
-    <p> I am a certified open water scuba diver and regulary dive in Arkansas lakes.</p>
-    <video controls muted>
-      <source src="./assets/Dive1.mp4">/>
-    </video>
-    <p id="caption">My first dive at Greer's Ferry Lake in Heber Springs, AR</p>
-  </section>
-  <!--About page Pets Section-->
-  <section class="aboutPets">
-    <h2>Pets</h2>
-    <h3 class="petname">Zelda</h3>
-    <br>
-    <!-- Image holder and left/right arrows -->
-    <div id="pictureZ">
-      <img id='targetZ' alt='' />
-      <span id="previousZ" class="fa fa-angle-left fa-5x" onclick="slide(-1, 'Zelda')"></span>
-      <span id="nextZ" class="fa fa-angle-right fa-5x" onclick="slide(1, 'Zelda')"></span>
-    </div>
-    <br>
-    <ul class="petattributes">
-      <li>Half Maine Coon</li>
-      <li>Black</li>
-      <li>Very Long Hair</li>
-      <li>16 Years Old</li>
-    </ul>
-    <h3 class="petname">Oscar</h3>
-    <br>
-    <!-- Image holder and left/right arrows -->
-    <div id="pictureO">
-      <img id='targetO' alt='' />
-      <span id="previousO" class="fa fa-angle-left fa-5x" onclick="slide(-1, 'Oscar')"></span>
-      <span id="nextO" class="fa fa-angle-right fa-5x" onclick="slide(1, 'Oscar')"></span>
-    </div>
-    <br>
-    <ul class="petattributes">
-      <li>American Short Hair</li>
-      <li>Grey and White</li>
-      <li>Short Silky Hair</li>
-      <li>11 Years Old</li>
-    </ul>
-    <p>I am considering fostering kitties for our local rescue once I see how much time I will have to work with them.
-    </p>
-  </section>
-  <footer>
-    <h2>Like what you see?</h2>
-    <button id="contact" onclick="contactbutton()">Contact Me</button>
-  </footer>
-  <script src="index.js"></script>
-</body>
 
+<a href="#main" class="skip">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="/" class="brand">Crystal Brock</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/#focus">Focus</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#work">Projects</a></li>
+      <li><a href="/#credentials">Credentials</a></li>
+      <li><a href="/about" aria-current="page">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <a href="/#resume" class="nav-cta">Résumé</a>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="wrap">
+  <section class="page-head">
+    <h1>About</h1>
+    <p>The short version: I wrote my first program at ten, spent a decade driving tractor-trailers, then went back to school and graduated Summa Cum Laude. The long version is below.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="prose">
+      <p>I wrote my first program in BASIC on a Commodore 64, and I loved it. Unfortunately, this was long before code editors — I spent hours hunting syntax errors by eye, and my ten-year-old self eventually gave up in frustration.</p>
+
+      <p>In junior high I signed up for a summer program on coding low-resolution graphics in BASIC. I loved it again, and finished with the most detailed project in the class. Still no code editors, though, so when the program ended, I stopped.</p>
+
+      <p>Then I spent ten years as a professional truck driver.</p>
+
+      <p>Driving paid the bills, but it wasn't satisfying the part of me that wants to build and design and improve things. I tried teaching myself Java in my spare time and discovered that motivation to practice coding after sixty hours behind a steering wheel is in critically short supply. So I decided to go to school full time. My partner agreed to carry our household while I did it.</p>
+
+      <p>I started in <strong>Computer Science</strong>, then switched to <strong>Cybersecurity</strong> in my final year — mostly because I'd convinced myself software development was a dying field. I was wrong about that, and coding remains my first love. But the security concentration turned out to be the best accident of my education: it gave me the governance and risk vocabulary that most developers never pick up.</p>
+
+      <p>I graduated from <a href="https://www.snhu.edu/" target="_blank" rel="noopener">Southern New Hampshire University</a> in May 2026, <strong>Summa Cum Laude with a 3.972 GPA</strong>, on the <a href="https://meritpages.com/crystalbrock" target="_blank" rel="noopener">President's List</a> every semester I was enrolled, and inducted into two honor societies — the National Society of Leadership and Success (Sigma Alpha Pi) and Alpha Sigma Lambda.</p>
+
+      <div class="pullquote">Give me time and access to a system and I will come back with more ideas than you asked for. I have a real passion for efficiency — and, apparently, for making sure people follow the rules.</div>
+
+      <p>That's the honest summary of what I'm good at. I'm an ideas person. Point me at a workflow and I'll find the friction in it. I'm particularly good at operating and fine-tuning AI systems, and I've been building agentic workflows and running local language models — Whisper, Piper, RAG pipelines — for setups where the data can't leave the building.</p>
+
+      <p>The other half is governance. I like compliance work in a way that surprises people. Mapping controls, running maturity assessments, translating a technical finding into something a stakeholder can actually act on — that's genuinely satisfying to me, and it's where I'd go if the AI track doesn't pan out first.</p>
+
+      <p>The trucking years weren't wasted, either. Ten years of federally regulated, safety-critical work with no supervisor looking over your shoulder teaches you what operational reliability actually costs. That's not a metaphor I reach for in interviews. It's just true.</p>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <span class="section-tag">Background</span>
+      <h2>Before the degree</h2>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h3>Professional Driver, Tractor-Trailer</h3>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Delivered freight safely and on schedule across a decade</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Maintained compliance with all federal transport regulations</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Operated proprietary logistics and load-tracking systems</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Tracked and filed preventative and emergent maintenance requests</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Customer Service Agent &mdash; AT&amp;T</h3>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Navigated multiple proprietary systems under time pressure</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Followed data security protocols protecting customer information</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Troubleshot device and service issues; escalated appropriately</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Coordinated across teams to resolve customer problems</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <span class="section-tag">Outside work</span>
+      <h2>The rest of it</h2>
+      <p>I'm creative in a few analog directions, and I'm a certified open water scuba diver.</p>
+    </div>
+    <div class="split">
+      <div>
+        <div class="panel">
+          <h3>Hobbies</h3>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Embroidery</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Paint-by-number</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Crochet</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Certified open water scuba diver &mdash; I dive Arkansas lakes regularly</li>
+          </ul>
+        </div>
+        <figure class="media">
+          <video controls muted preload="metadata" playsinline>
+            <source src="assets/Dive1.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+          <figcaption>My first dive at Greer's Ferry Lake, Heber Springs, AR</figcaption>
+        </figure>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h3>The cats</h3>
+
+          <h4 class="pet-name">Zelda</h4>
+          <p class="pet-meta">Half Maine Coon &middot; black, very long hair &middot; 16 years old</p>
+          <div class="gallery" data-gallery="zelda">
+            <img alt="Zelda the cat" data-target>
+            <button class="prev" data-dir="-1" aria-label="Previous photo of Zelda">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="next" data-dir="1" aria-label="Next photo of Zelda">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <span class="gallery-count" data-count></span>
+          </div>
+
+          <h4 class="pet-name" style="margin-top:1.6rem">Oscar</h4>
+          <p class="pet-meta">American Shorthair &middot; grey and white, short silky hair &middot; 11 years old</p>
+          <div class="gallery" data-gallery="oscar">
+            <img alt="Oscar the cat" data-target>
+            <button class="prev" data-dir="-1" aria-label="Previous photo of Oscar">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="next" data-dir="1" aria-label="Next photo of Oscar">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <span class="gallery-count" data-count></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="contact">
+      <h2>Still reading?</h2>
+      <p>I'm actively seeking work in AI automation and systems architecture, or in governance, risk, and compliance.</p>
+      <a href="mailto:crystalbrock619@gmail.com" class="btn btn-white">crystalbrock619@gmail.com</a>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/crystalbrock619/" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 8.98h4v12H3v-12zM9 8.98h3.8v1.64h.06c.53-1 1.83-2.06 3.76-2.06 4.02 0 4.76 2.65 4.76 6.09v6.33h-4v-5.61c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96v5.71H9v-12z"/></svg>
+          LinkedIn</a>
+        <a href="https://github.com/crystalbrock619" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
+          GitHub</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="site-footer wrap">
+  <span>&copy; 2026 Crystal Brock</span>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/#work">Projects</a>
+    <a href="mailto:crystalbrock619@gmail.com">Email</a>
+  </nav>
+</footer>
+
+<script src="index.js"></script>
+</body>
 </html>

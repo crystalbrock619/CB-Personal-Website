@@ -1,70 +1,83 @@
-//Global variable counter to keep track of current pic
-var Zimgnumber = 0;
-var Oimgnumber = 0;
-//Name of the folder that contains the pics
-var picFolder = 'assets';
-//Array of picture file names
-var picfilesZelda = ['Zelda1.jpg', 'Zelda2.jpg', 'Zelda3.jpg', 'Zelda4.jpg', 'Zelda5.jpg', 'Zelda6.jpg', 'Zelda7.jpg', 'Zelda8.jpg', 'Zelda9.jpg', 'Zelda10.jpg'];
-var picfilesOscar = ['Oscar1.jpg', 'Oscar2.jpg', 'Oscar3.jpg', 'Oscar4.jpg', 'Oscar5.jpg', 'Oscar6.jpg', 'Oscar7.jpg', 'Oscar8.jpg', 'Oscar9.jpg', 'Oscar10.jpg', 'Oscar11.jpg', 'Oscar12.jpg', 'Oscar13.jpg', 'Oscar14.jpg', 'OscarandChris6_15.jpg']
-//Empty array of image objects
-var imagesZelda = [];
-var imagesOscar = [];
-//populate image objects into images array and set each ones src attribute to one of the files in picfiles
-for (var i=0; i < picfilesZelda.length; i++) {
-  imagesZelda[i] = new Image();
-  imagesZelda[i].src = picFolder + '/' + picfilesZelda[i];
-}
-for (var i=0; i < picfilesOscar.length; i++) {
-  imagesOscar[i] = new Image();
-  imagesOscar[i].src = picFolder + '/' + picfilesOscar[i];
-}
-//variable to store the number of images in the images array
-var imgcountZelda = imagesZelda.length -1;
-var imgcountOscar = imagesOscar.length -1;
-function slide(num, name) {
-  if (name == 'Zelda') {
-  //Increment or decrement in range 1 to imgcount
-  Zimgnumber = (Zimgnumber + num) % imgcountZelda;
-  //Loop to last img in images array if prev is clicked when on first image in images array
-  Zimgnumber = Zimgnumber < 0 ? imgcountZelda-1 : Zimgnumber;
-  //Set the src attribute for the image on the page to the src of the array image
-  document.getElementById('targetZ').src = imagesZelda[Zimgnumber].src;
-  }
-  if (name == 'Oscar') {
-    //Increment or decrement in range 1 to imgcount
-  Oimgnumber = (Oimgnumber + num) % imgcountOscar;
-  //Loop to last img in images array if prev is clicked when on first image in images array
-  Oimgnumber = Oimgnumber < 0 ? imgcountOscar-1 : Oimgnumber;
-  //Set the src attribute for the image on the page to the src of the array image
-  document.getElementById('targetO').src = imagesOscar[Oimgnumber].src;
-  }
-}
-//Once page is loaded set src attribute of image on page to the first image in the array
-window.addEventListener('load', (event) => {
-  document.getElementById('targetZ').src = imagesZelda[0].src;
-  document.getElementById('targetO').src = imagesOscar[0].src;
-})
+/* ==========================================================================
+   Crystal Brock — crystalbrock.org
+   ========================================================================== */
+(function () {
+  'use strict';
 
-//Search My Site
-function search() {
-    var site = "crystalbrock.org"
-    //get user text from search text box
-    var lookFor = document.getElementById("txtlookfor").value;
-    //if search box not empty do the search
-    if(lookFor.length>0) {
-      //Build URL for the search
-      var query="http://www.google.com/search?q=" + encodeURIComponent(lookFor) + " site:" + site;
-      //Set Address bar equal to query
-      location.href=query
-    }
-    else{
-      //if text box empty show alert
-      alert("Please type the word or phrase that you would like to search for.");
-    }
-}
-function contactbutton(){
-  window.open("./contact.html"); 
+  /* ---------- mobile navigation ---------- */
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+
+  if (toggle && links) {
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // close the menu after tapping any link
+    links.addEventListener('click', function (e) {
+      if (e.target.closest('a')) {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && links.classList.contains('open')) {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
   }
-function seeprojects(){
-  window.open("./projects.html"); 
-  }
+
+  /* ---------- pet photo galleries (About page) ---------- */
+  var SETS = {
+    zelda: [
+      'Zelda1.jpg', 'Zelda2.jpg', 'Zelda3.jpg', 'Zelda4.jpg', 'Zelda5.jpg',
+      'Zelda6.jpg', 'Zelda7.jpg', 'Zelda8.jpg', 'Zelda9.jpg', 'Zelda10.jpg'
+    ],
+    oscar: [
+      'Oscar1.jpg', 'Oscar2.jpg', 'Oscar3.jpg', 'Oscar4.jpg', 'Oscar5.jpg',
+      'Oscar6.jpg', 'Oscar7.jpg', 'Oscar8.jpg', 'Oscar9.jpg', 'Oscar10.jpg',
+      'Oscar11.jpg', 'Oscar12.jpg', 'Oscar13.jpg', 'Oscar14.jpg',
+      'OscarandChris6_15.jpg'
+    ]
+  };
+
+  var FOLDER = 'assets/';
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll('[data-gallery]'),
+    function (root) {
+      var files = SETS[root.getAttribute('data-gallery')];
+      if (!files || !files.length) return;
+
+      var img = root.querySelector('[data-target]');
+      var counter = root.querySelector('[data-count]');
+      var i = 0;
+
+      // preload so navigation is instant
+      files.forEach(function (f) {
+        var pre = new Image();
+        pre.src = FOLDER + f;
+      });
+
+      function render() {
+        img.src = FOLDER + files[i];
+        if (counter) counter.textContent = (i + 1) + ' / ' + files.length;
+      }
+
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-dir]');
+        if (!btn) return;
+        // wrap cleanly in both directions
+        i = (i + parseInt(btn.getAttribute('data-dir'), 10) + files.length) % files.length;
+        render();
+      });
+
+      render();
+    }
+  );
+})();
