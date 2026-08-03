@@ -32,6 +32,22 @@
     });
   }
 
+  /* ---------- live project previews ----------
+     Each iframe renders at a fixed 1280x720 desktop viewport, then is scaled
+     to whatever width its card happens to be. Recomputed on resize. */
+  var frames = document.querySelectorAll('.live-frame');
+  if (frames.length) {
+    var fit = function () {
+      Array.prototype.forEach.call(frames, function (f) {
+        var w = f.parentElement.clientWidth;
+        f.style.transform = 'scale(' + (w / 1280) + ')';
+      });
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+  }
+
   /* ---------- pet photo galleries (About page) ---------- */
   var SETS = {
     zelda: [
