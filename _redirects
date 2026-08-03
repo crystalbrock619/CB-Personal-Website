@@ -1,4 +1,4 @@
-# Netlify redirects — preserve URLs from the previous site structure.
+# Netlify redirects: preserve URLs from the previous site structure.
 # Old pages were folded into the single-scroll homepage; these keep any
 # existing links, bookmarks, and search-engine results working.
 

@@ -1,7 +1,7 @@
-# Local design mockups — review artifacts, not site content
+# Local design mockups: review artifacts, not site content
 _mockups/
 
-# OS / editor cruft
+# OS and editor cruft
 .DS_Store
 Thumbs.db
 *.swp
