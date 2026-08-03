@@ -328,6 +328,31 @@ h1,h2,h3,h4{font-family:var(--serif);letter-spacing:-.018em;line-height:1.15}
 .panel li{display:flex;gap:.65rem;font-size:.92rem;color:var(--tx-2);align-items:flex-start}
 .panel li svg{color:var(--ac);flex-shrink:0;margin-top:.4rem}
 
+/* Graduation story: text beside the lead photo, then a supporting row. */
+.story{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1.6rem,4vw,3rem);align-items:start}
+@media(max-width:860px){.story{grid-template-columns:1fr}}
+.story-text p{margin-bottom:1.3rem;color:var(--tx-2)}
+.story-text p:last-child{margin-bottom:0}
+.story-text strong{color:var(--tx);font-weight:650}
+.story-figure{position:sticky;top:96px}
+@media(max-width:860px){.story-figure{position:static}}
+.story-figure img{width:100%;border-radius:var(--r);border:1px solid var(--line);box-shadow:0 14px 34px var(--sh)}
+.story-figure figcaption,.photo-row figcaption{
+  font-size:.84rem;color:var(--tx-3);margin-top:.7rem;line-height:1.5;
+}
+
+.photo-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1.3rem;margin-top:clamp(2rem,5vw,3rem);
+}
+.photo-row figure{margin:0}
+.photo-row img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%;
+  border-radius:var(--r);border:1px solid var(--line);
+  box-shadow:0 8px 22px var(--sh);transition:transform .25s,box-shadow .25s;
+}
+.photo-row figure:hover img{transform:translateY(-3px);box-shadow:0 14px 32px var(--sh-2)}
+
 figure.media{margin-top:1.5rem}
 figure.media video,figure.media img{width:100%;border-radius:var(--r);border:1px solid var(--line)}
 figure.media figcaption{font-size:.85rem;color:var(--tx-3);margin-top:.7rem;text-align:center}
