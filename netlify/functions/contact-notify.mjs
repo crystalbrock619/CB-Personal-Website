@@ -5,9 +5,10 @@
    notification at this function. The function verifies the request really came
    from Netlify, then sends the message on by email via Resend.
 
-   Why a function rather than Netlify's built-in email notification: that one
-   is a paid feature. This does the same job on the free tier and keeps the
-   API key server side, where a browser can never read it.
+   OPTIONAL. Netlify's built-in email notification does this job with no code
+   and no third party, and is available on the current plan. Use this function
+   only if you want the mail to arrive from your own domain rather than from
+   formresponses@netlify.com, with richer formatting. Both can run at once.
 
    Required environment variables (Netlify > Project configuration >
    Environment variables):
@@ -128,7 +129,7 @@ export default async (req) => {
 
   const name    = (data.name    || 'Someone').toString().trim().slice(0, 200);
   const email   = (data.email   || '').toString().trim().slice(0, 320);
-  const subject = (data.subject || 'No subject given').toString().trim().slice(0, 200);
+  const topic   = (data.topic || 'No topic given').toString().trim().slice(0, 200);
   const message = (data.message || '').toString().trim().slice(0, 10000);
 
   if (!message) return reply(400, { error: 'Submission had no message' });
@@ -138,7 +139,7 @@ export default async (req) => {
 
 From:    ${name}
 Email:   ${email || 'not supplied'}
-About:   ${subject}
+About:   ${topic}
 Received: ${submission.created_at || new Date().toISOString()}
 
 ${message}
@@ -153,7 +154,7 @@ Reply directly to this email to answer ${name}.`;
   <table style="border-collapse:collapse;margin-bottom:1.25rem;font-size:.95rem">
     <tr><td style="padding:.2rem 1rem .2rem 0;color:#57534e">From</td><td><strong>${escapeHtml(name)}</strong></td></tr>
     <tr><td style="padding:.2rem 1rem .2rem 0;color:#57534e">Email</td><td>${email ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : 'not supplied'}</td></tr>
-    <tr><td style="padding:.2rem 1rem .2rem 0;color:#57534e">About</td><td>${escapeHtml(subject)}</td></tr>
+    <tr><td style="padding:.2rem 1rem .2rem 0;color:#57534e">About</td><td>${escapeHtml(topic)}</td></tr>
   </table>
   <div style="border-left:3px solid #1e50a2;padding:.25rem 0 .25rem 1rem;white-space:pre-wrap">${escapeHtml(message)}</div>
   <p style="font-size:.85rem;color:#6f665d;margin-top:1.5rem">
@@ -170,7 +171,7 @@ Reply directly to this email to answer ${name}.`;
     body: JSON.stringify({
       from: CONTACT_FROM,
       to: [CONTACT_TO],
-      subject: `crystalbrock.org: ${subject} (${name})`,
+      subject: `crystalbrock.org: ${topic} (${name})`,
       text,
       html,
       // so hitting reply in your mail client answers the sender, not the robot

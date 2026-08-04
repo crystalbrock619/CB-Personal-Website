@@ -48,14 +48,28 @@ under Forms, and the visitor is redirected to `/thanks`.
 
 ### Getting the messages by email
 
-Netlify's built-in email notification is a paid feature. Instead, the free
-"HTTP POST request" notification fires at `netlify/functions/contact-notify.mjs`,
-which verifies the request and forwards the message by email through Resend.
+**The simple way, and what is actually in use.** Netlify's built-in email
+notification handles this with no code:
 
-Netlify still stores every submission under Forms, so the dashboard remains a
-backup if a send ever fails.
+Project configuration → Notifications → Emails and webhooks
+→ Form submission notifications → Add → Email notification
+→ event "New form submission", form `contact`
 
-**One-time setup**
+Mail arrives from `formresponses@netlify.com`. Because the form has a field
+named `email`, Netlify sets `Reply-to` to the sender automatically, so replying
+answers them rather than Netlify.
+
+Note that a form field named `subject` would be treated as the email subject
+line and would override the one set in the UI. The topic dropdown is therefore
+named `topic`, not `subject`, deliberately.
+
+### Optional: send from your own domain instead
+
+`netlify/functions/contact-notify.mjs` is an alternative that sends via Resend,
+so mail arrives from `site@crystalbrock.org` with richer formatting instead of
+from a Netlify address. It is not wired up by default and is not required.
+
+**One-time setup, only if you want this**
 
 1. Create a [Resend](https://resend.com) account and verify `crystalbrock.org`
    as a sending domain. Create an API key.
@@ -94,7 +108,7 @@ backup if a send ever fails.
 
 **Security notes**
 
-The function refuses to run unless all four variables are set, and rejects any
+The function refuses to run unless the required variables are set, and rejects any
 request whose signature does not verify against the shared secret. Without that
 check it would be an open relay: anyone who found the URL could send mail
 through the Resend account. The signature also covers a hash of the body, so a
