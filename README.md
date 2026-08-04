@@ -13,6 +13,7 @@ Personal site for Crystal Brock: AI automation and cybersecurity governance.
 | `about.html`  | Long-form background, prior experience, hobbies, pet galleries |
 | `style.css`   | Shared design system; all tokens live in `:root` |
 | `index.js`    | Mobile nav toggle and the pet photo galleries |
+| `thanks.html` | Confirmation page the contact form redirects to |
 | `_redirects`  | Netlify 301s preserving the old `/contact` and `/projects` URLs |
 | `assets/`     | Images, dive video, résumé PDFs |
 
@@ -37,6 +38,27 @@ Opening files locally, use `about.html`.
 
 Colors, spacing, and type are CSS custom properties at the top of `style.css`.
 Change `--ac` to reskin the whole site's accent color.
+
+## Contact form
+
+The form in the Contact section of `index.html` is a Netlify Form. Netlify's
+build parses the static HTML, sees `data-netlify="true"`, and wires up the
+handler; there is no backend code. Submissions land in the Netlify dashboard
+under Forms, and the visitor is redirected to `/thanks`.
+
+**Email notifications are a separate setting.** Enabling form detection only
+captures submissions; it does not send mail. To get emailed:
+
+Netlify → Project configuration → Notifications → Form submission
+→ add an email notification for the `contact` form.
+
+Spam is handled by a honeypot field named `bot-field`, hidden off-screen rather
+than with `display:none`, which some bots check for. If spam becomes a problem,
+add `data-netlify-recaptcha="true"` to the form and a `<div data-netlify-recaptcha>`
+where the widget should appear.
+
+To add or rename a field, give it a `name` attribute; that name is what appears
+in the dashboard and in the notification email.
 
 ## Re-enabling live project previews
 

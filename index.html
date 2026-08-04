@@ -250,7 +250,45 @@
   <div class="contact">
     <h2>Let's talk</h2>
     <p>I'm actively seeking work in AI automation and systems architecture, or in governance, risk, and compliance.</p>
-    <a href="mailto:crystalbrock619@gmail.com" class="btn btn-white">crystalbrock619@gmail.com</a>
+
+    <!-- Netlify Forms: data-netlify builds the handler at deploy time.
+         netlify-honeypot names a decoy field bots fill in and humans never see. -->
+    <form name="contact" method="POST" action="/thanks"
+          data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+      <div class="field-row">
+        <p class="field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" required autocomplete="name">
+        </p>
+        <p class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" required autocomplete="email">
+        </p>
+      </div>
+
+      <p class="field">
+        <label for="cf-subject">What's this about</label>
+        <select id="cf-subject" name="subject">
+          <option>A role</option>
+          <option>Contract or freelance work</option>
+          <option>Something else</option>
+        </select>
+      </p>
+
+      <p class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="5" required></textarea>
+      </p>
+
+      <button type="submit" class="btn btn-white">Send message</button>
+    </form>
+
+    <p class="contact-alt">Or email me directly at
+      <a href="mailto:crystalbrock619@gmail.com">crystalbrock619@gmail.com</a></p>
+
     <div class="social">
       <a href="https://www.linkedin.com/in/crystalbrock619/" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 8.98h4v12H3v-12zM9 8.98h3.8v1.64h.06c.53-1 1.83-2.06 3.76-2.06 4.02 0 4.76 2.65 4.76 6.09v6.33h-4v-5.61c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96v5.71H9v-12z"/></svg>
