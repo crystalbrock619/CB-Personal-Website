@@ -1,0 +1,11 @@
+# Netlify build configuration.
+# The site is plain static files, so there is no build command; Netlify just
+# publishes the repository root. This file exists to declare the functions
+# directory explicitly rather than relying on auto-detection.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"

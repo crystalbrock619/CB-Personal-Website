@@ -46,11 +46,49 @@ build parses the static HTML, sees `data-netlify="true"`, and wires up the
 handler; there is no backend code. Submissions land in the Netlify dashboard
 under Forms, and the visitor is redirected to `/thanks`.
 
-**Email notifications are a separate setting.** Enabling form detection only
-captures submissions; it does not send mail. To get emailed:
+### Getting the messages by email
 
-Netlify → Project configuration → Notifications → Form submission
-→ add an email notification for the `contact` form.
+Netlify's built-in email notification is a paid feature. Instead, the free
+"HTTP POST request" notification fires at `netlify/functions/contact-notify.mjs`,
+which verifies the request and forwards the message by email through Resend.
+
+Netlify still stores every submission under Forms, so the dashboard remains a
+backup if a send ever fails.
+
+**One-time setup**
+
+1. Create a [Resend](https://resend.com) account and verify `crystalbrock.org`
+   as a sending domain. Create an API key.
+2. In Netlify → Project configuration → Environment variables, add:
+
+   | Variable | Value |
+   | -------- | ----- |
+   | `RESEND_API_KEY` | the key from Resend |
+   | `CONTACT_TO` | where messages should land |
+   | `CONTACT_FROM` | a verified sender, e.g. `site@crystalbrock.org` |
+   | `NETLIFY_WEBHOOK_SECRET` | any long random string you invent |
+
+3. Deploy, so the function exists.
+4. Netlify → Project configuration → Notifications → **HTTP POST request**:
+   - Event: new form submission, form `contact`
+   - URL: `https://www.crystalbrock.org/.netlify/functions/contact-notify`
+   - JWS secret token: the same string used for `NETLIFY_WEBHOOK_SECRET`
+5. Submit the form once and confirm the email arrives.
+
+**Security notes**
+
+The function refuses to run unless all four variables are set, and rejects any
+request whose signature does not verify against the shared secret. Without that
+check it would be an open relay: anyone who found the URL could send mail
+through the Resend account. The signature also covers a hash of the body, so a
+valid signature cannot be replayed against altered content.
+
+The API key is only ever read server side from the environment. It never
+reaches the browser. Submitted content is HTML-escaped before being placed in
+the email body, and `reply_to` is set to the sender so replying works normally.
+
+If email stops arriving, check Netlify → Functions → `contact-notify` logs. A
+401 means the secret does not match; a 500 means a variable is missing.
 
 Spam is handled by a honeypot field named `bot-field`, hidden off-screen rather
 than with `display:none`, which some bots check for. If spam becomes a problem,
