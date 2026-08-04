@@ -63,71 +63,20 @@ Note that a form field named `subject` would be treated as the email subject
 line and would override the one set in the UI. The topic dropdown is therefore
 named `topic`, not `subject`, deliberately.
 
-### Optional: send from your own domain instead
+### Spam and fields
 
-`netlify/functions/contact-notify.mjs` is an alternative that sends via Resend,
-so mail arrives from `site@crystalbrock.org` with richer formatting instead of
-from a Netlify address. It is not wired up by default and is not required.
-
-**One-time setup, only if you want this**
-
-1. Create a [Resend](https://resend.com) account and verify `crystalbrock.org`
-   as a sending domain. Create an API key.
-2. In Netlify → Project configuration → Environment variables, add:
-
-   | Variable | Value |
-   | -------- | ----- |
-   | `RESEND_API_KEY` | the key from Resend |
-   | `CONTACT_TO` | where messages should land |
-   | `CONTACT_FROM` | a verified sender, e.g. `site@crystalbrock.org` |
-
-3. Deploy, so the function exists.
-4. Netlify → Project configuration → Notifications → Emails and webhooks
-   → Form submission notifications → Add → **HTTP POST request**, for form
-   `contact`.
-
-5. Authenticate the webhook. Use whichever the Netlify UI offers.
-
-   **If the notification form has a JWS secret token field** (preferred, since
-   it also proves the body was not tampered with):
-
-   - URL: `https://www.crystalbrock.org/.netlify/functions/contact-notify`
-   - JWS secret token: a long random string
-   - Add that same string as the `NETLIFY_WEBHOOK_SECRET` environment variable
-
-   **If it does not**, put the secret in the URL instead:
-
-   - URL: `https://www.crystalbrock.org/.netlify/functions/contact-notify?token=YOUR_TOKEN`
-   - Add that same token as the `NETLIFY_WEBHOOK_TOKEN` environment variable
-
-   Generate either with `openssl rand -base64 32 | tr -d '=+/' | cut -c1-40`.
-   The function accepts whichever is configured and refuses to run if neither
-   is, so the endpoint is never left unauthenticated.
-
-6. Submit the form once and confirm the email arrives.
-
-**Security notes**
-
-The function refuses to run unless the required variables are set, and rejects any
-request whose signature does not verify against the shared secret. Without that
-check it would be an open relay: anyone who found the URL could send mail
-through the Resend account. The signature also covers a hash of the body, so a
-valid signature cannot be replayed against altered content.
-
-The API key is only ever read server side from the environment. It never
-reaches the browser. Submitted content is HTML-escaped before being placed in
-the email body, and `reply_to` is set to the sender so replying works normally.
-
-If email stops arriving, check Netlify → Functions → `contact-notify` logs. A
-401 means the secret does not match; a 500 means a variable is missing.
-
-Spam is handled by a honeypot field named `bot-field`, hidden off-screen rather
-than with `display:none`, which some bots check for. If spam becomes a problem,
-add `data-netlify-recaptcha="true"` to the form and a `<div data-netlify-recaptcha>`
-where the widget should appear.
+Spam is handled by a honeypot field named `bot-field`, positioned off-screen
+rather than with `display:none`, which some bots check for. If spam becomes a
+problem, add `data-netlify-recaptcha="true"` to the form and a
+`<div data-netlify-recaptcha>` where the widget should appear.
 
 To add or rename a field, give it a `name` attribute; that name is what appears
 in the dashboard and in the notification email.
+
+A previous version of this repo included a Netlify Function that sent the mail
+via Resend, written before we established that the built-in notification was
+available on this plan. It was removed as unnecessary. If it is ever wanted
+again, it is in git history at commit `de4408f`.
 
 ## Re-enabling live project previews
 
