@@ -15,7 +15,18 @@
      RESEND_API_KEY           secret key from resend.com
      CONTACT_TO               address that receives the messages
      CONTACT_FROM             verified sender, e.g. site@crystalbrock.org
-     NETLIFY_WEBHOOK_SECRET   same JWS secret entered on the notification
+
+   Plus AT LEAST ONE of these, so the endpoint is never unauthenticated:
+
+     NETLIFY_WEBHOOK_SECRET   the JWS secret token entered on the notification,
+                              if that field exists in your Netlify UI
+     NETLIFY_WEBHOOK_TOKEN    a long random string you append to the notification
+                              URL as ?token=... , for when it does not
+
+   The signature is the better of the two, because it also proves the body was
+   not altered. The URL token is the fallback: it travels inside the TLS
+   connection, but unlike a signature it can appear in request logs, so treat
+   it as the weaker option and prefer the signature when available.
 
    ========================================================================== */
 
@@ -63,24 +74,45 @@ const escapeHtml = (s = '') =>
 export default async (req) => {
   if (req.method !== 'POST') return reply(405, { error: 'Method not allowed' });
 
-  const { RESEND_API_KEY, CONTACT_TO, CONTACT_FROM, NETLIFY_WEBHOOK_SECRET } = process.env;
+  const {
+    RESEND_API_KEY, CONTACT_TO, CONTACT_FROM,
+    NETLIFY_WEBHOOK_SECRET, NETLIFY_WEBHOOK_TOKEN,
+  } = process.env;
 
   // Fail closed. A function that emails on demand without authentication is an
   // open relay, so refuse to run at all if it has not been configured.
-  const missing = Object.entries({
-    RESEND_API_KEY, CONTACT_TO, CONTACT_FROM, NETLIFY_WEBHOOK_SECRET,
-  }).filter(([, v]) => !v).map(([k]) => k);
+  const missing = Object.entries({ RESEND_API_KEY, CONTACT_TO, CONTACT_FROM })
+    .filter(([, v]) => !v).map(([k]) => k);
 
   if (missing.length) {
     console.error('Not configured, missing:', missing.join(', '));
     return reply(500, { error: 'Function is not configured' });
   }
+  if (!NETLIFY_WEBHOOK_SECRET && !NETLIFY_WEBHOOK_TOKEN) {
+    console.error('Refusing to run: set NETLIFY_WEBHOOK_SECRET or NETLIFY_WEBHOOK_TOKEN');
+    return reply(500, { error: 'Function is not configured' });
+  }
 
   const rawBody = await req.text();
 
-  if (!signatureIsValid(req.headers.get('x-webhook-signature'), NETLIFY_WEBHOOK_SECRET, rawBody)) {
-    console.warn('Rejected a request with an invalid or missing signature');
-    return reply(401, { error: 'Invalid signature' });
+  // Accept either proof of origin. Whichever is configured must pass; if both
+  // are configured, either one satisfies it.
+  let authorised = false;
+
+  if (NETLIFY_WEBHOOK_SECRET) {
+    authorised = signatureIsValid(
+      req.headers.get('x-webhook-signature'), NETLIFY_WEBHOOK_SECRET, rawBody);
+  }
+  if (!authorised && NETLIFY_WEBHOOK_TOKEN) {
+    const supplied = new URL(req.url).searchParams.get('token') ?? '';
+    const a = Buffer.from(supplied);
+    const b = Buffer.from(NETLIFY_WEBHOOK_TOKEN);
+    authorised = a.length === b.length && crypto.timingSafeEqual(a, b);
+  }
+
+  if (!authorised) {
+    console.warn('Rejected: no valid signature or token');
+    return reply(401, { error: 'Unauthorised' });
   }
 
   let body;

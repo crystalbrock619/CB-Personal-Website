@@ -66,14 +66,31 @@ backup if a send ever fails.
    | `RESEND_API_KEY` | the key from Resend |
    | `CONTACT_TO` | where messages should land |
    | `CONTACT_FROM` | a verified sender, e.g. `site@crystalbrock.org` |
-   | `NETLIFY_WEBHOOK_SECRET` | any long random string you invent |
 
 3. Deploy, so the function exists.
-4. Netlify → Project configuration → Notifications → **HTTP POST request**:
-   - Event: new form submission, form `contact`
+4. Netlify → Project configuration → Notifications → Emails and webhooks
+   → Form submission notifications → Add → **HTTP POST request**, for form
+   `contact`.
+
+5. Authenticate the webhook. Use whichever the Netlify UI offers.
+
+   **If the notification form has a JWS secret token field** (preferred, since
+   it also proves the body was not tampered with):
+
    - URL: `https://www.crystalbrock.org/.netlify/functions/contact-notify`
-   - JWS secret token: the same string used for `NETLIFY_WEBHOOK_SECRET`
-5. Submit the form once and confirm the email arrives.
+   - JWS secret token: a long random string
+   - Add that same string as the `NETLIFY_WEBHOOK_SECRET` environment variable
+
+   **If it does not**, put the secret in the URL instead:
+
+   - URL: `https://www.crystalbrock.org/.netlify/functions/contact-notify?token=YOUR_TOKEN`
+   - Add that same token as the `NETLIFY_WEBHOOK_TOKEN` environment variable
+
+   Generate either with `openssl rand -base64 32 | tr -d '=+/' | cut -c1-40`.
+   The function accepts whichever is configured and refuses to run if neither
+   is, so the endpoint is never left unauthenticated.
+
+6. Submit the form once and confirm the email arrives.
 
 **Security notes**
 
