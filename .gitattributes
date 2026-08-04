@@ -1,0 +1,20 @@
+# Normalise line endings.
+#
+# Without this, editing a file on Windows can rewrite it with CRLF endings,
+# and git then reports every line in the file as changed even though the
+# content is identical. That buries real changes in thousands of fake ones.
+#
+# text=auto  : git decides which files are text and normalises them to LF
+#              in the repository, regardless of what the working copy uses
+# eol=lf     : check them out as LF too, so the repo and disk agree
+
+* text=auto eol=lf
+
+# Binary files must never be touched
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.gif  binary
+*.mp4  binary
+*.pdf  binary
+*.zip  binary
