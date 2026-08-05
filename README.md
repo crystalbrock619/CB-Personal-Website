@@ -102,6 +102,11 @@ How it works: the iframe renders at a fixed 1280x720 desktop viewport, and
 resize. `pointer-events:none` keeps the whole card behaving as one link, and
 the `data-label` shows through if a project is ever offline.
 
-Both projects were confirmed to allow embedding; neither sends
-`X-Frame-Options` or a `frame-ancestors` policy. Verify that again if either
-site moves to different hosting.
+**Check embedding before enabling this for any project.** As of 5 Aug 2026 the
+redesigned Advice Button refuses to be framed, with or without the `sandbox`
+attribute, so a live preview there renders as an empty grey box. That is correct
+security practice on its part; it just rules the technique out. Brain Scrambler
+has not been retested since its own redesign.
+
+The quickest check: open the target site in an iframe from any page and see
+whether it renders. If it does not, use a static screenshot instead.
