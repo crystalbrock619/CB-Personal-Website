@@ -17,7 +17,7 @@ ideas until you know why they failed.
 | Image handling | Locked | 5 Aug 2026 |
 | Contact form | Locked | 5 Aug 2026 |
 | Domain email security | Locked | 3 Aug 2026 |
-| Project cards | In progress | not yet |
+| Project cards | Locked | 5 Aug 2026 |
 | Hero photograph | Provisional | not yet |
 
 ---
@@ -148,7 +148,14 @@ clickjacking protection on its part. Retest anything else before assuming.
 
 **Card copy must match what the project actually is.** The Advice Button card
 claimed a REST API the app has never had. That is the kind of claim an
-interviewer opens the site to check.
+interviewer opens the site to check. The Task Ambush figures (11 modules, 151
+tests) were counted from the repository, not taken from notes; recount before
+changing them.
+
+**A card does not have to link to a live site.** Task Ambush is localhost only
+by design, so its kicker reads "Self-hosted" rather than "In progress" and its
+link reads "View on GitHub". Self-hosted is the architecture, not an unfinished
+state, and saying otherwise undersells it.
 
 ---
 
@@ -258,12 +265,10 @@ main prose once, which is enough.
 
 ## 12. Open
 
-- **Project cards for Task Ambush and Uncommon Jars**, both marked in progress.
-  Agreed, not built. Task Ambush is at `C:\Users\lilbr\Desktop\Task-Ambush`
-  (Flask, 11 modules, 151 tests, localhost only, so the card links to GitHub;
-  git history verified clean of secrets). Uncommon Jars is her preserves
-  business; the real homepage is on that repo's `Prototyping` branch while the
-  live site is still a coming-soon page.
+- **Uncommon Jars card.** Agreed, parked. `uncommonjars.com` was checked on 5
+  Aug 2026 and still serves the coming-soon page; the real homepage is on that
+  repo's `Prototyping` branch. Build the card once the deployed URL shows the
+  real site, not before.
 - **Brain Scrambler** is being redesigned. Revisit its card, and retest whether
   it allows framing, once she says it is done.
 - **Hero photograph.** Currently a retouched selfie, which is the weakest
