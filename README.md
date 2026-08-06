@@ -5,6 +5,9 @@ Personal site for Crystal Brock: AI automation and cybersecurity governance.
 **Live:** <https://www.crystalbrock.org>
 **Hosting:** Netlify (project `crystalbrock-lambda-project`), auto-deploys from `master`.
 
+See [DESIGN.md](DESIGN.md) for the decisions behind the site, including what
+has already been tried and rejected. Read that before proposing changes.
+
 ## Structure
 
 | Path          | Purpose |
