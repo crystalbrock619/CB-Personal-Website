@@ -152,6 +152,20 @@ interviewer opens the site to check. The Task Ambush figures (11 modules, 151
 tests) were counted from the repository, not taken from notes; recount before
 changing them.
 
+**Every card was wrong at least once, and each time the same way: the copy
+described an earlier version of the project.** On 7 Aug 2026 all three were
+checked against their repositories. Brain Scrambler was claimed as Python when
+the deployed game is JavaScript in a single HTML file, the Python being the
+original command-line version; Advice Button claimed content was held locally
+when quotes are fetched per mode on demand.
+**Before editing a card, clone the repo and read it.** The site is the only
+place these claims are made, so nothing else will catch the drift.
+
+**The row is balanced by measurement, not by eye.** All three cards sit at
+169px of copy over two tag rows, which is why they have no dead space. `.card p`
+has `flex:1`, so the shortest copy on the row leaves a visible hole above its
+tags. Adding a tag or a sentence to one card means re-measuring the others.
+
 **A card does not have to link to a live site.** Task Ambush is localhost only
 by design, so its kicker reads "Self-hosted" rather than "In progress" and its
 link reads "View on GitHub". Self-hosted is the architecture, not an unfinished
@@ -269,8 +283,14 @@ main prose once, which is enough.
   Aug 2026 and still serves the coming-soon page; the real homepage is on that
   repo's `Prototyping` branch. Build the card once the deployed URL shows the
   real site, not before.
-- **Brain Scrambler** is being redesigned. Revisit its card, and retest whether
-  it allows framing, once she says it is done.
+- **The Advice Button card says "four-mode" and only one mode is built.**
+  `src/modes.ts` has Push me at `built: true`; steady, shift and decide carry
+  `target: 'push'` and serve Push content. Crystal's call on 7 Aug 2026, on the
+  basis that the other three land shortly and the kicker already reads "In
+  progress". Recheck when they do, and correct the card if they slip.
+- **Brain Scrambler still needs a framing retest.** Its redesign shipped and the
+  card was corrected on 7 Aug 2026, but whether it allows being embedded in an
+  iframe was never tested. See section 6 before enabling any live preview.
 - **Hero photograph.** Currently a retouched selfie, which is the weakest
   element on the site. She is planning a photo at her desk, which would also
   give the page its only visual evidence that she builds things.
