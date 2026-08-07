@@ -173,7 +173,10 @@ h1,h2,h3,h4{font-family:var(--serif);letter-spacing:-.018em;line-height:1.15}
 /* ==========================================================================
    Section scaffolding
    ========================================================================== */
-.section{padding:clamp(3.5rem,8vw,5.75rem) 0}
+/* Section rhythm. The max was 5.75rem, which put 184px between every section
+   and made roughly a fifth of the page height empty. 4rem reads as a break
+   rather than a void; the section tag and heading carry the separation. */
+.section{padding:clamp(2.75rem,6vw,4rem) 0}
 .section-head{margin-bottom:2.8rem;max-width:64ch}
 .section-tag{
   font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;
